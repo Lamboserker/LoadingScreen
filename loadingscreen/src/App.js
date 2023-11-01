@@ -1,18 +1,18 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import './App.css';
+import React, { useEffect, useState, useCallback } from "react";
+import "./App.css";
 
 function App() {
   const [loading, setLoading] = useState(0);
   const [showElements, setShowElements] = useState(false);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-  const [randomWord, setRandomWord] = useState('');
-  const [wordPosition, setWordPosition] = useState({ top: 0, left: 0});
+  const [randomWord, setRandomWord] = useState("");
+  const [wordPosition, setWordPosition] = useState({ top: 0, left: 0 });
   const [opacity, setOpacity] = useState(0);
 
   const words = ["Zähle Socken", "Sammel Blätter", "Drehe Joint", "Lade Waffe"];
 
   const playMusic = () => {
-    const audio = new Audio('http://localhost:3000/music');
+    const audio = new Audio("http://localhost:3000/music");
     audio.play();
     setIsMusicPlaying(true);
     setTimeout(() => {
@@ -69,16 +69,27 @@ function App() {
   return (
     <div className="App">
       {!isMusicPlaying && <button onClick={playMusic}>Start</button>}
-      <div className={`elements ${showElements ? 'slide-in' : ''}`}>
-        {/* Ihre anderen Elemente hier */}
+      <div className={`elements ${showElements ? "slide-in" : ""}`}>
+        <div id="load">
+          <div>G</div>
+          <div>N</div>
+          <div>I</div>
+          <div>D</div>
+          <div>A</div>
+          <div>O</div>
+          <div>L</div>
+        </div>
       </div>
-      <div className="random-word" style={{
-        position: 'absolute',
-        top: wordPosition.top,
-        left: wordPosition.left,
-        opacity: opacity,
-        transition: 'opacity 1s ease-in-out'
-      }}>
+      <div
+        className="random-word"
+        style={{
+          position: "absolute",
+          top: wordPosition.top,
+          left: wordPosition.left,
+          opacity: opacity,
+          transition: "opacity 1s ease-in-out",
+        }}
+      >
         {randomWord}
       </div>
       <div className="loading-bar">
