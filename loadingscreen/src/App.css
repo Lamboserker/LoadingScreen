@@ -1,0 +1,55 @@
+.App {
+  background-image: url('./assets/img/jake-blucker-8LlJNFLTEm0-unsplash.jpg');
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  background-position: center ;
+  background-repeat: no-repeat;
+  /* Weitere CSS-Stile */
+}
+
+.elements {
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+
+.slide-in {
+  opacity: 1;
+}
+
+.loading-bar {
+  position: absolute;
+  bottom: 5%;
+  left: 13%;
+  width: 70%;
+  height: 15px;
+  background-color: grey;
+  border-radius: 10px;
+}
+
+.loading-fill {
+  height: 100%;
+  background-image: radial-gradient(circle farthest-corner at 6.6% 12%, rgba(64,0,126,1) 20%, rgba(0,255,160,1) 100%);
+  background-repeat: repeat;
+  background-color: rgba(0,0,0,0);
+  transition: width 0.1s linear;
+  border-radius: 10px;
+  -webkit-box-shadow:0px 0px 105px 45px rgba(45,255,196,0.9);
+-moz-box-shadow: 0px 0px 105px 45px rgba(45,255,196,0.9);
+box-shadow: 0px 0px 105px 45px rgba(45,255,196,0.9);
+}
+
+.random-word {
+  position: absolute;
+  font-size: 24px;
+ 
+  color: rgb(0, 0, 0);
+  font-weight: bolder;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 1000;
+}
+
+
+
