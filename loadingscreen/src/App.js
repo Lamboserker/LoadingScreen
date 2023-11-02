@@ -1,11 +1,11 @@
 import React, { useState, useRef } from "react";
 import "./App.css";
 import Loader from "./components/Loader";
+import Banner from "./components/Banner";
 function App() {
   const videoRef = useRef(null);
   const [loading, setLoading] = useState(0);
   const [, setIsMusicPlaying] = useState(false);
-  const [showElements] = useState(false);
 
   const playMusicAndStartLoading = () => {
     playMusic();
@@ -43,7 +43,7 @@ function App() {
           type="video/mp4"
         />
       </video>
-
+<Banner />
       <Loader />
       <div className="loading-bar">
         <div className="loading-fill" style={{ width: `${loading}%` }}></div>

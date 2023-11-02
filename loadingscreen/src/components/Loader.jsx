@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSmoking,
@@ -10,92 +10,77 @@ import {
   faXmark,
   faFlask,
   faPills,
+  faWineBottle,
+  faCar,
+  faBottleDroplet,
+  faSpinner // Importieren Sie dieses Icon
 } from "@fortawesome/free-solid-svg-icons";
 import "./loader.css";
 
 const Loader = () => {
-  const icons = [
-    faSmoking,
-    faBong,
-    faJoint,
-    faSkull,
-    faSquare,
-    faCreditCard,
-    faXmark,
-    faFlask,
-    faPills,
+  // Definieren Sie Ihre Icons und Sätze als Paare
+  const iconSentencePairs = [
+    { icon: faSmoking, sentence: "sammel blätter ...", flip: true },
+    { icon: faBong, sentence: "rauche bong ...", flip: true },
+    { icon: faJoint, sentence: "baue joint ...", flip: true },
+    { icon: faSkull, sentence: "lade waffe ...",bounce: true },
+    { icon: faWineBottle, sentence: "suche pfand ...",flip: true },
+    { icon: faCreditCard, sentence: "hacke pulver ...",flip: true },
+    // Hier verwenden wir das spezielle Spinner-Icon
+    { icon: faSpinner, sentence: "bitte warten ...", spinning: true },
+    { icon: faSpinner, sentence: "please wait ...", spinning: true },
+    { icon: faFlask, sentence: "sprühe dose ...",flip: true },
+    { icon: faPills, sentence: "stimmung verbessern ...",flip: true },
+    { icon: faCar, sentence: "tanke auto ...",flip: true },
+    { icon: faBottleDroplet, sentence: "trinke alkohol ...",flip: true },
+    { icon: faSquare, sentence: "Überprüfe Quadratwurzeln ...",flip: true },
+    { icon: faXmark, sentence: "Kreuze Tage bis zum Wochenende an ...",flip: true },
   ];
-  const sentences = [
-    "zähle socken ...",
-    "sammel blätter ...",
-    "baue joint ...",
-    "lade waffe ...",
-    "suche pfand ...",
-    "rauche bong ...",
-    "tanke auto ...",
-    "klaue kleingeld ...",
-    "hacke pulver ...",
-    "sprühe dose ...",
-    "loading ...",
-    "lade ...",
-    "aufwärmen ...",
-    "bitte warten ...",
-    "steuern zahlen ...",
-  ];
-  const [currentIconIndex, setCurrentIconIndex] = useState(0);
-  const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
+  const [currentPairIndex, setCurrentPairIndex] = useState(0);
   const [fadeClass, setFadeClass] = useState("");
 
-  const toggleFade = useCallback(() => {
+  const toggleFade = () => {
     setFadeClass((fadeClass) => (fadeClass === "" ? "fade" : ""));
-  }, []);
+  };
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       toggleFade();
       setTimeout(() => {
-        setCurrentIconIndex((prevIndex) => (prevIndex + 1) % icons.length);
-        setCurrentSentenceIndex(
-          (prevIndex) => (prevIndex + 1) % sentences.length
-        );
+        setCurrentPairIndex((prevIndex) => (prevIndex + 1) % iconSentencePairs.length);
         toggleFade();
-      }, 300); // Warten auf das Ausblenden, bevor die Icons und Sätze aktualisiert werden
-    }, 1800); // Das Intervall auf 600 ms setzen, um Zeit für das Aus- und Einblenden zu lassen
+      }, 500);
+    }, 3000);
 
     return () => clearInterval(intervalId);
-  }, [toggleFade]);
+  }, []);
+
+  const currentPair = iconSentencePairs[currentPairIndex];
 
   return (
-    <>
     <div className="container">
-    <div id="load"> 
-        <div>G</div> 
-        <div>N</div> 
-        <div>I</div> 
-        <div>D</div> 
-        <div>A</div> 
-        <div>O</div> 
-        <div>L</div> 
-    
+      <div id="load"> 
+          <div>G</div> 
+          <div>N</div> 
+          <div>I</div> 
+          <div>D</div> 
+          <div>A</div> 
+          <div>O</div> 
+          <div>L</div> 
+      </div>
+      <div className="icon-text-container">
+          <FontAwesomeIcon
+              icon={currentPair.icon}
+              color="white"
+              size="2x"
+              className={`${currentPair.flip ? 'fa-flip' : ''} ${currentPair.spinning ? 'fa-spin' : ''} ${currentPair.beat ? 'fa-beat' : ''} ${currentPair.pulse ? 'fa-pulse' : ''} ${currentPair.bounce ? 'fa-bounce' : ''}`}
+          />
+          <div className={`writings ${fadeClass}`} style={{ marginLeft: "20px" }}>
+              {currentPair.sentence}
+          </div>
+      </div>
     </div>
-    <div className="icon-text-container">
-        <FontAwesomeIcon
-            icon={icons[currentIconIndex]}
-            color="white"
-            size="2x"
-            flip={currentIconIndex < 8}
-            shake={currentIconIndex === 8}
-        />
-        <div className={`writings ${fadeClass}`} style={{ marginLeft: "20px" }}>
-            {sentences[currentSentenceIndex]}
-        </div>
-    </div>
-
-    </div>
-    </>
   );
 };
 
 export default Loader;
-
-
