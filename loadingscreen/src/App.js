@@ -1,24 +1,11 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import "./App.css";
-import {
-  bolt,
-  champagne,
-  flask,
-  joint,
-  money,
-  pills,
-  skull,
-  smoking,
-} from "./assets/svg/index";
-
+import Loader from "./components/Loader";
 function App() {
   const videoRef = useRef(null);
   const [loading, setLoading] = useState(0);
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [, setIsMusicPlaying] = useState(false);
   const [showElements] = useState(false);
-  const [iconIndex, setIconIndex] = useState(0); // Zustand zum Verfolgen des aktuellen Icons
-  const icons = [bolt, champagne, flask, joint, money, pills, skull, smoking]; // Liste der Icons
- 
 
   const playMusicAndStartLoading = () => {
     playMusic();
@@ -27,7 +14,6 @@ function App() {
       videoRef.current.play();
     }
   };
-  
 
   const playMusic = () => {
     const audio = new Audio("http://localhost:4000/music");
@@ -47,21 +33,9 @@ function App() {
     }, 100);
   };
 
-  // Effect zum Wechseln der Icons
-  useEffect(() => {
-    let iconInterval;
-    if (isMusicPlaying) {
-      iconInterval = setInterval(() => {
-        setIconIndex((prevIndex) => (prevIndex + 1) % icons.length); // Icon wechseln
-      }, 500); // Intervall für den Wechsel der Icons
-    }
-    return () => clearInterval(iconInterval);
-  }, [isMusicPlaying]);
-
-
   return (
     <div className="App">
-       <button onClick={playMusicAndStartLoading}>Start</button>
+      <button onClick={playMusicAndStartLoading}>Start</button>
 
       <video ref={videoRef} loop muted className="background-video">
         <source
@@ -69,22 +43,8 @@ function App() {
           type="video/mp4"
         />
       </video>
-     
-      <div className="icon-container">
-     
-    </div>
-      <div className={`elements ${showElements ? "slide-in" : ""}`}>
-        <div id="load">
-          <div>G</div>
-          <div>N</div>
-          <div>I</div>
-          <div>D</div>
-          <div>A</div>
-          <div>O</div>
-          <div>L</div>
-        </div>
-      </div>
-    
+
+      <Loader />
       <div className="loading-bar">
         <div className="loading-fill" style={{ width: `${loading}%` }}></div>
       </div>
