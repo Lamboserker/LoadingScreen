@@ -1,36 +1,30 @@
 -- client.lua
+local isLoading = true
+local loadProgress = 0
 
--- Registriert ein Event, das den Loadingscreen anzeigt
-RegisterNUICallback('showLoadingScreen', function()
-    -- Sendet einen Befehl an die NUI, um den Loadingscreen anzuzeigen
-    SetNuiFocus(true, true)
-    SendNUIMessage({ type = 'ON_LOADING_SCREEN' })
-end)
-
--- Registriert ein Event, das den Loadingscreen versteckt
-RegisterNUICallback('hideLoadingScreen', function()
-    -- Sendet einen Befehl an die NUI, um den Loadingscreen zu verstecken
-    SetNuiFocus(false)
-    SendNUIMessage({ type = 'OFF_LOADING_SCREEN' })
-end)
-
--- Überprüft regelmäßig den Ladezustand des Spielers
+-- Haupt-Thread für den simulierten Ladevorgang
 Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(1000) -- Wartezeit in Millisekunden
-        -- Überprüfen Sie hier den Fortschritt des Ladevorgangs und senden Sie Updates an den Loadingscreen
-        local loadingProgress = GetLoadingProgress() -- Diese Funktion sollte Ihren Fortschritts-Logik entsprechen
-        SendNUIMessage({ type = 'UPDATE_LOADING_PROGRESS', progress = loadingProgress })
+    while isLoading do
+        Citizen.Wait(1000) -- Simuliert die Wartezeit für das Laden der Ressourcen
 
-        -- Wenn der Ladevorgang abgeschlossen ist
-        if loadingProgress >= 100 then
-            TriggerEvent('hideLoadingScreen')
-            break -- Beendet die Schleife, wenn das Laden abgeschlossen ist
+        -- Aktualisiere den Ladestatus
+        loadProgress = loadProgress + 10
+
+        -- Übertrage den Ladestatus an das NUI-Frontend
+        SendNUIMessage({
+            action = 'updateLoadingBar',
+            progress = loadProgress
+        })
+
+        -- Überprüfe, ob das Laden abgeschlossen ist
+        if loadProgress >= 100 then
+            isLoading = false
+            -- Weitere Aktionen nach dem Laden können hier eingeleitet werden
+            SendNUIMessage({
+                action = 'hideLoadingScreen'
+            })
         end
     end
 end)
 
--- Stellt eine Hilfsfunktion bereit, um den Ladebildschirm anzuzeigen
-function DisplayLoadingScreen()
-    TriggerEvent('showLoadingScreen')
-end
+-- Weitere Client-seitige Event-Listener und Funktionen können hier hinzugefügt werden.

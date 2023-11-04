@@ -1,13 +1,21 @@
 fx_version 'cerulean'
-game 'gta5'
+games { 'gta5' }
 
--- Der Pfad zur HTML-Datei für das UI muss relativ zum Ressourcenverzeichnis angegeben werden.
-ui_page 'public/index.html'
+author 'Lamboserker'
+description 'Custom loadingscreen for fiveM'
+version '1.0.0'
+loadscreen_cursor 'yes'
+loadscreen_manual_shutdown 'no'
+loadscreen 'html/index.html'
 
 files {
-    'public/*.*', -- Dies würde alle Dateien im 'public'-Verzeichnis einbeziehen.
-    'public/music/*.mp3' -- Dies würde speziell alle MP3-Dateien im 'public/music'-Verzeichnis einbeziehen.
+    'html/index.html',
+    'html/assets/CSS/main.css',
+    'html/assets/JS/main.js',
+    
+    'html/assets/videos/background.mp4', 
+    'html/assets/music/onlymp3.to - Kendrick Lamar M.A.A.D. City Feat. MC eiht -10yrPDf92hY-192k-1698776278.mp3' 
 }
 
--- Pfad zum Client-Skript, das angenommen wird, sich im Hauptverzeichnis der Ressource zu befinden.
-client_script 'client.lua'
+-- Server-sided music streaming might require additional server configuration
+loadscreen_music 'html/assets/music/onlymp3.to - Kendrick Lamar M.A.A.D. City Feat. MC eiht -10yrPDf92hY-192k-1698776278.mp3'
