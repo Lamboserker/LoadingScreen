@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const startButton = document.getElementById("startButton");
-    startButton.remove(); 
     const backgroundVideo = document.getElementById("backgroundVideo");
     const loadingFill = document.getElementById("loadingFill");
     const loaderIcon = document.getElementById("loaderIcon");
     const loaderSentence = document.getElementById("loaderSentence");
+    playMusicAndStartVideo();
+
     window.addEventListener('load', () => {
         startLoading();
       });
@@ -31,10 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
         flip: true,
       },
     ];
-  
-    startButton.addEventListener("click", () => {
-      playMusicAndStartLoading();
-    });
   
     const updateLoader = () => {
       const currentPair = iconSentencePairs[currentPairIndex];
@@ -64,21 +60,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 3000);
   
   
-    function playMusicAndStartLoading() {
-      playMusic();
-      startLoading();
-      backgroundVideo.play();
+     function playMusicAndStartVideo() {
+        playMusic();
+        backgroundVideo.play(); // Das Video startet jetzt automatisch.
     }
-  
-    function playMusic() {
-      // Verwendung der lokalen Musikdatei
-      const audio = new Audio(
-        "./assets/music/onlymp3.to - Kendrick Lamar M.A.A.D. City Feat. MC eiht -10yrPDf92hY-192k-1698776278.mp3"
-      );
-      audio.play();
-      isMusicPlaying = true;
-    }
-  
     function startLoading() {
       let currentPairIndex = 0;
       updateLoader(currentPairIndex);
@@ -99,10 +84,4 @@ document.addEventListener("DOMContentLoaded", () => {
           // Zum Beispiel: transition to the next screen or hide loading screen
         }
       }, 100);
-    }
-  
-  
-    
-    // Video-Quelle setzen
-    backgroundVideo.src = "https://cdn.discordapp.com/attachments/1075140494973218846/1169333453234380932/bg_2.mp4?ex=655505a4&is=654290a4&hm=5d75201df0de106de8d78d5bb7044ac6ec83c9e53c791b2399ccd25a36ab9551&";
-  });
+    }});

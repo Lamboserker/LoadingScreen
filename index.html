@@ -7,8 +7,7 @@
 </head>
 <body>
     <div class="App">
-        <button id="startButton">Start</button>
-        <video id="backgroundVideo" loop muted class="background-video"></video>
+        <video id="backgroundVideo" loop muted autoplay class="background-video" src="./html/assets/videos/background.mp4"></video>
         <div class="sentence">
             <span class="letter">E</span>
             <span class="letter">i</span>
@@ -46,4 +45,11 @@
     <script src="./html/assets/js/main.js"></script>
     <script src="https://kit.fontawesome.com/71df581bd8.js" crossorigin="anonymous"></script>
 </body>
+<script> 
+function playMusic() {
+  // Ihr Code zum Abspielen der Musik.
+  const audio = new Audio("./html/assets/music/Kendrick Lamar-M.A.A.D.City.mp3");
+  audio.play();
+  // Stellen Sie sicher, dass Autoplay-Richtlinien beachtet werden.
+}</script>
 </html>
