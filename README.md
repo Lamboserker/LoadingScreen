@@ -1,6 +1,6 @@
 # LoadingScreen
 
-Welcome to `LoadingScreen`, a customizable loading screen solution designed to enhance the user experience of web applications during load times.
+Welcome to `LoadingScreen`, a customizable fiveM-loading screen solution designed to enhance the user experience of web applications during load times.
 
 ## Features
 
